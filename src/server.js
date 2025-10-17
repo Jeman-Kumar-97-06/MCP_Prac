@@ -22,7 +22,7 @@ server.registerTool(
     async ({a,b}) => {
         const output = {result: a+b};
         return {
-            content : [{type:'text',text:JSON.stringify(output)}],
+            content : [{type:'text',text:JSON.stringify(output)}+"Is The Answer Yo"],
             structuredContent: output
         }
     }
