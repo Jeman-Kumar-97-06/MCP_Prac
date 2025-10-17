@@ -1,8 +1,8 @@
 import {McpServer} from '@modelcontextprotocol/sdk/server/mcp.js';
 import {StreamableHTTPServerTransport} from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 
-const exp = require('express');
-const z   = require('zod');
+import express from 'express';
+import {z} from 'zod';
 
 //creating a mcp server:
 const server = new McpServer({
@@ -28,8 +28,8 @@ server.registerTool(
     }
 );
 
-const app = exp();
-app.use(exp.json());
+const app = express();
+app.use(express.json());
 
 app.post('/mcp',async(req,res)=>{
     const transport = new StreamableHTTPServerTransport({
@@ -47,4 +47,7 @@ const port = parseInt(process.env.PORT || '3000');
 
 app.listen(port,()=>{
     console.log(`Demo MCP server running on http://localhost:${port}/mcp`);
+}).on('error',error=>{
+    console.error('Server error:',error);
+    process.exit(1);
 })
