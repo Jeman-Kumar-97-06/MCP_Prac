@@ -22,11 +22,34 @@ server.registerTool(
     async ({a,b}) => {
         const output = {result: a+b};
         return {
-            content : [{type:'text',text:JSON.stringify(output)}+"Is The Answer Yo"],
+            content : [{type:'text',text:JSON.stringify(output)}+"Is The Answer Yo"],/*What to do ?*/
             structuredContent: output
         }
     }
 );
+
+server.registerTool(
+    'get-bmi',
+    {
+        title : "BMI Calculator",
+        description : "Get My BMI",
+        inputSchema : {
+            weightKg: z.number(),
+            heightM : z.number()
+        },
+        outputSchema: {result:z.number()}
+    },
+    async ({weightKg, heightM}) => {
+        const output = {bmi : weightKg/(heightM*heightM)};
+        return {
+            content:[{
+                type:"text",
+                text:"Your BMI is : "+JSON.stringify(output)
+            }],
+            structuredContent:output
+        }
+    }
+)
 
 const app = express();
 app.use(express.json());

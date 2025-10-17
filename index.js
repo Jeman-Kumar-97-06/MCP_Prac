@@ -10,6 +10,21 @@ async function main() {
     const transport = new StreamableHTTPClientTransport({url:"http://localhost:3000/mcp"});
     const client    = new Client(transport);
     // await client.connect();
+    const userPrompt= "Use your bmi tool to calculate bmi of a person with weight:90kgs and height:6ft";
+    const completion= await cclient.chat.completions.create({
+        messages :[
+            {role:'system',content:'You are connected to an MCP Server with a tool called "get-bmi".'},
+            {role:'user',content:userPrompt}
+        ],
+        model: "llama-4-scout-17b-16e-instruct",
+    });
+    console.log(completion?.choices[0]?.message);
+};
+
+async function main2(){
+    const transport = new StreamableHTTPClientTransport({url:"http://localhost:3000/mcp"});
+    const client    = new Client(transport);
+    // await client.connect();
     const userPrompt= "Use your add tool to add 5 and 9";
     const completion= await cclient.chat.completions.create({
         messages :[
@@ -19,7 +34,9 @@ async function main() {
         model: "llama-4-scout-17b-16e-instruct",
     });
     console.log(completion?.choices[0]?.message);
-};
+}
 
 main()
+
+main2()
 
